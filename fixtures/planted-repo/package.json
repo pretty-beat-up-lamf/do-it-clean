@@ -1,0 +1,8 @@
+{
+  "name": "acme-widgets",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint src"
+  }
+}

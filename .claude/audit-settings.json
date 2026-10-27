@@ -1,0 +1,30 @@
+{
+  "disableSkillShellExecution": true,
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "allow": [
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:platform.claude.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:agents.md)",
+      "Edit(./reports/**)",
+      "Edit(./state/sources-digest.md)"
+    ],
+    "deny": [
+      "Bash",
+      "WebSearch",
+      "NotebookEdit",
+      "Edit(./.claude/**)",
+      "Edit(./prompts/**)",
+      "Edit(./fixtures/**)",
+      "Read(//**/.env*)",
+      "Read(//**/*.pem)",
+      "Read(//**/*.key)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/**)"
+    ],
+    "blockReadsOutsideWorkingDirectories": true
+  }
+}
