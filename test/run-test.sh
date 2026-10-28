@@ -15,7 +15,7 @@ REPO=$(pwd)
 RUNS=${RUNS:-2}
 AUDIT_MODEL=${AUDIT_MODEL:-}
 GRADER_MODEL=${GRADER_MODEL:-haiku}
-WORK=$(mktemp -d)
+WORK=$(cd "$(mktemp -d)" && pwd -P)   # real path: on macOS /var is a link to /private/var, and the lockdown rules match the real one
 OUT=$REPO/reports/test-results-${AUDIT_MODEL:-default}.md
 KEY=$REPO/fixtures/expected.md
 
