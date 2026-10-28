@@ -45,7 +45,8 @@ def read_log(path):
             m = json.loads(line)
         except ValueError:
             continue
-        content = m.get("message", {}).get("content")
+        msg = m.get("message")
+        content = msg.get("content") if isinstance(msg, dict) else None  # denied calls log a plain-text message
         if not isinstance(content, list):
             continue
         for c in content:
