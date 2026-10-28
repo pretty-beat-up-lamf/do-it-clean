@@ -21,7 +21,9 @@ This repo holds **your standards and the audit process**. What counts as best pr
 | `fixtures/` | A fake repo with planted problems, plus the answer key |
 
 ## Quick start
-Requires [Claude Code](https://code.claude.com). From the `do-it-clean` folder, run:
+Requires [Claude Code](https://code.claude.com). From the `do-it-clean` folder, run this in a terminal. A terminal opened inside the desktop app works too.
+
+The command below is the tested way to start it. The lockdown comes from its flags. If you start Claude Code another way and the skill can see the shell tool, it concludes the lockdown didn't load and refuses to run.
 
 ```bash
 claude --settings .claude/audit-settings.json --strict-mcp-config --add-dir ~/path/to/your-repo "/do-it-clean ~/path/to/your-repo"

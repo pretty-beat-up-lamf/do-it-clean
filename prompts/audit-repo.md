@@ -36,12 +36,15 @@ Read `state/sources-digest.md`. If the target's instruction files haven't change
 Model: <model or "default / unknown">
 Sources checked: <n> (<dead links or redirects>)
 Stale model notes: <list or "none">
+Findings: <total> (<count per type, e.g. 2 Security, 3 Contradictory>)
 
 ## Top 3
 1. <the most important change, in one plain sentence a beginner can act on>
 2. …
 3. …
 (Security comes first. If there are fewer than 3 findings, list what there is. If there are none, write "Nothing to fix.")
+
+Top 3 is where to start, not the full list. Every row in the Findings table needs a decision: apply, skip, or defer.
 
 ## Findings
 | # | Type | File:line | Finding | Proposed change | Evidence | Confidence |
