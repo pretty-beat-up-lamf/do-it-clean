@@ -15,6 +15,7 @@
       "Bash",
       "WebSearch",
       "NotebookEdit",
+      "Agent",
       "Edit(./.claude/**)",
       "Edit(./prompts/**)",
       "Edit(./fixtures/**)",

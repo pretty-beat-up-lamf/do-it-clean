@@ -85,5 +85,3 @@ K2: OK - Finding 24 explicitly says keep src/CLAUDE.md line
 ```
 
 **Overall: ALL RUNS PASSED**
-
-Working files (logs, reports): a temporary folder on the machine that ran the test.

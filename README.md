@@ -47,7 +47,7 @@ The goal is that you only need to trust Claude Code itself, and not do-it-clean,
 Nothing else leaves your computer.
 
 **What the lockdown blocks**, enforced by Claude Code's settings and not just by the prompt:
-- No shell commands, no web search, no notebooks.
+- No shell commands, no web search, no notebooks, no subagents.
 - No MCP servers (`--strict-mcp-config`).
 - Web fetches only to the allowlist. Anything that isn't explicitly allowed is denied without asking (`dontAsk` mode).
 - Reads only inside the do-it-clean folder and the repo being audited. A link inside the repo that points somewhere else is refused too. On top of that, `.env` files and keys are blocked everywhere.
@@ -59,6 +59,7 @@ Nothing else leaves your computer.
 
 **What it doesn't cover**
 - Your own user-level hooks still run, because Claude Code runs them, not do-it-clean.
+- Mods you've installed still load and can approve tool calls the lockdown would deny. Turn off any you don't trust before an audit.
 - A clever injection can't get data out, but it could still skew the *report*. Treat findings as advice, and review them before changing anything.
 - The settings are the real protection; the prompt rules are a backup. Read `.claude/audit-settings.json` before you trust it.
 
