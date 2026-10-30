@@ -10,7 +10,7 @@ disable-model-invocation: true
 Target: $ARGUMENTS
 
 ## Before anything else
-If the Bash tool or any `mcp__` tool is available to you, the lockdown isn't fully loaded. Stop and tell the user to restart with the command in README.md ("Quick start"). Don't audit anything.
+If the Bash, SendMessage, or Artifact tool, or any `mcp__` tool, is available to you, the lockdown isn't fully loaded. Stop and tell the user to restart with the command in README.md ("Quick start"). Don't audit anything.
 
 ## What to run
 - A path: follow `prompts/audit-repo.md` for that repo.

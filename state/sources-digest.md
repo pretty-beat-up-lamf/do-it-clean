@@ -2,7 +2,7 @@
 
 Written by each run: the date of the last check, plus one line per source noting anything relevant that changed. The next run only reads what's newer than this date. Empty until the first run.
 
-Last checked: 2026-10-27
+Last checked: 2026-10-30
 
 ## 2026-10-27 (first run, fixture target)
 - memory: target under 200 lines per CLAUDE.md; imports don't reduce context cost. Claude Code reads AGENTS.md natively (v2.1.277+), but by default only when no CLAUDE.md / CLAUDE.local.md exists; `@AGENTS.md` import in CLAUDE.md loads both without double-reading.
@@ -22,3 +22,14 @@ Last checked: 2026-10-27
 - settings: `permissions.blockReadsOutsideWorkingDirectories` (v2.1.257+, `true` honored from any scope); `bypassPermissions`/`auto` defaultMode ignored from project/local settings since v2.1.257.
 - models overview: same four current models. Deprecations: claude-sonnet-4-5-20250929 retires 2026-11-30 (replacement claude-sonnet-5-5).
 - REDIRECT (secondary): docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview → platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview (302).
+
+## 2026-10-30 (self-audit)
+- All 10 primary URLs live, no redirects. Models overview page metadata still gives canonical `…/docs/en/models/overview`.
+- changelog: top is 2.1.314. 2.1.314 adds `permissions.blockWritesOutsideWorkingDirectories` (Write/Edit/NotebookEdit refuse paths outside the working directories in every mode). 2.1.312 fixes Claude overwriting a very large CLAUDE.md/rules/@-included file after seeing only its start.
+- settings: keys honored from any scope include `enableArtifact: false` / `disableArtifact: true` (turns off the Artifact tool, v2.1.242+) and `disableClaudeAiConnectors: true`; `crossSessionInbound` has an `accept` < `hold` < `refuse` ladder.
+- permissions: a bare tool name in `deny` removes the tool from context, for every tool except `EndConversation`; unknown names in deny rules give a startup warning. `Write(path)`/`NotebookEdit(path)`/`Glob(path)` rules never match: use `Edit(path)`/`Read(path)`. `dontAsk` still runs "actions that need no approval".
+- cli-reference: `--tools` restricts built-in tools (`""` disables all); `--disallowedTools` takes deny rules; `--bare` skips project hooks/skills/MCP but still loads `--add-dir` skills. All flags used by the repo still documented.
+- memory: `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1` loads CLAUDE.md, `.claude/CLAUDE.md`, `.claude/rules/*.md`, CLAUDE.local.md from `--add-dir` folders. Built-in `/doctor prompt-audit` covers CLAUDE.md, CLAUDE.local.md, AGENTS.md, and `.claude/` rules, skills, commands, subagents, and output styles.
+- sub-agents: plugin subagents ignore frontmatter `hooks`/`mcpServers`; plugins ship hooks in `hooks/hooks.json`. `Task` still an alias of `Agent`.
+- skills: new `disallowed-tools`, `when_to_use`, `paths`, `shell` frontmatter fields; `allowManagedPermissionRulesOnly` ignores project `allowed-tools` (v2.1.282+). SKILL.md still under 500 lines.
+- models overview / deprecations: same four current models; no new deprecations since 2026-09-30.

@@ -1,5 +1,6 @@
 {
   "disableSkillShellExecution": true,
+  "enableArtifact": false,
   "permissions": {
     "defaultMode": "dontAsk",
     "allow": [
@@ -16,6 +17,17 @@
       "WebSearch",
       "NotebookEdit",
       "Agent",
+      "Artifact",
+      "ArtifactData",
+      "ArtifactComments",
+      "SendMessage",
+      "ListAgents",
+      "RemoteTrigger",
+      "PushNotification",
+      "CronCreate",
+      "ScheduleWakeup",
+      "DesignSync",
+      "EnterWorktree",
       "Edit(./.claude/**)",
       "Edit(./prompts/**)",
       "Edit(./fixtures/**)",
@@ -26,6 +38,7 @@
       "Read(~/.aws/**)",
       "Read(~/.config/**)"
     ],
-    "blockReadsOutsideWorkingDirectories": true
+    "blockReadsOutsideWorkingDirectories": true,
+    "blockWritesOutsideWorkingDirectories": true
   }
 }

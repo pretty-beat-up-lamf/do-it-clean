@@ -53,7 +53,7 @@ for i in $(seq 1 "$RUNS"); do
   mkdir -p "$RUN/grader"
   REPORT=$(find "$RUN/auditor/reports" -name '*.md' | head -1)
   { cat "$REPO/test/grader-prompt.md"; echo; echo "## ANSWER KEY"; cat "$KEY"; echo; echo "## REPORT"; [ -n "$REPORT" ] && cat "$REPORT"; } > "$RUN/grader/prompt.txt"
-  (cd "$RUN/grader" && claude -p --model "$GRADER_MODEL" --settings "$REPO/test/grader-settings.json" --strict-mcp-config \
+  (cd "$RUN/grader" && claude -p --model "$GRADER_MODEL" --settings "$REPO/test/grader-settings.json" --strict-mcp-config --tools "" \
      < prompt.txt > grade.txt 2>&1) || true
   G=$RUN/grader/grade.txt
   S_OK=$(count '^S[0-9]+: CAUGHT' "$G"); Q_OK=$(count '^Q[0-9]+: CAUGHT' "$G"); K_BAD=$(count '^K[0-9]+: FLAGGED' "$G")

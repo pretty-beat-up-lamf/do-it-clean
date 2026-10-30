@@ -47,13 +47,13 @@ The goal is that you only need to trust Claude Code itself, and not do-it-clean,
 Nothing else leaves your computer.
 
 **What the lockdown blocks**, enforced by Claude Code's settings and not just by the prompt:
-- No shell commands, no web search, no notebooks, no subagents.
+- No shell commands, no web search, no notebooks, no subagents, and no publishing, messaging other sessions, notifications, or scheduled tasks.
 - No MCP servers (`--strict-mcp-config`).
 - Web fetches only to the allowlist. Anything that isn't explicitly allowed is denied without asking (`dontAsk` mode).
 - Reads only inside the do-it-clean folder and the repo being audited. A link inside the repo that points somewhere else is refused too. On top of that, `.env` files and keys are blocked everywhere.
 - Skills inside the audited repo can't run shell commands, and the audit never invokes them. Test S8 checks this.
 - No editing do-it-clean's own prompts, settings, or fixtures. A planted instruction can't rewrite the auditor.
-- If the skill finds the shell available, it refuses to run, because that means the lockdown didn't load.
+- If the skill finds the shell or a tool that can message other sessions available, it refuses to run, because that means the lockdown didn't load.
 
 **Prompt injection:** anything inside an audited repo or a fetched page is treated as data. Text that tries to instruct an AI gets reported as a Security finding, not followed. The fixture includes planted injections to test this.
 
