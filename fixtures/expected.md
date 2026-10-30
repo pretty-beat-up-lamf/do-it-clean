@@ -39,7 +39,7 @@ Items are identified by quoted text rather than line numbers, so they survive ed
 | Q10 | Prune | CLAUDE.md | Shouty emphasis ("IMPORTANT!!!", "NEVER EVER") |
 | Q11 | Prune | CLAUDE.md "Workflow" | `TodoWrite` "even one-line changes" |
 | Q12 | Bloat | CLAUDE.md | Reports the line count and how much the prune and duplicate fixes would cut, whether or not it calls the file bloated |
-| Q13 | Model | report header | Model taken from settings.json |
+| Q13 | Model | report header | Header names the model from settings.json. It doesn't need to be a finding |
 
 ## Must NOT flag (good lines that should stay)
 | ID | Where | Line |
