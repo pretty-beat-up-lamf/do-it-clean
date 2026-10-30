@@ -43,6 +43,7 @@ for i in $(seq 1 "$RUNS"); do
 
   # The audit, under the same lockdown a real user gets.
   (cd "$RUN/auditor" && claude -p "/do-it-clean $T" --settings .claude/audit-settings.json --strict-mcp-config \
+     --tools "Read,Glob,Grep,Edit,Write,WebFetch,Skill" \
      --add-dir "$T" ${AUDIT_MODEL:+--model "$AUDIT_MODEL"} --output-format stream-json --verbose > "$RUN/log.jsonl" 2>&1) || true
 
   # Check 1: plain code.

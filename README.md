@@ -26,7 +26,7 @@ Requires [Claude Code](https://code.claude.com). From the `do-it-clean` folder, 
 The command below is the tested way to start it. The lockdown comes from its flags. If you start Claude Code another way and the skill can see the shell tool, it concludes the lockdown didn't load and refuses to run.
 
 ```bash
-claude --settings .claude/audit-settings.json --strict-mcp-config --add-dir ~/path/to/your-repo "/do-it-clean ~/path/to/your-repo"
+claude --settings .claude/audit-settings.json --strict-mcp-config --tools "Read,Glob,Grep,Edit,Write,WebFetch,Skill" --add-dir ~/path/to/your-repo "/do-it-clean ~/path/to/your-repo"
 ```
 
 The report lands in `reports/private/`. Read it, then apply only the changes you agree with.
@@ -34,7 +34,7 @@ The report lands in `reports/private/`. Read it, then apply only the changes you
 To audit do-it-clean itself, run `./test/run-test.sh` first, then run the command below. The self-audit checks stale model notes, the source links, and its own files, and it may propose one new test case per run.
 
 ```bash
-claude --settings .claude/audit-settings.json --strict-mcp-config "/do-it-clean self"
+claude --settings .claude/audit-settings.json --strict-mcp-config --tools "Read,Glob,Grep,Edit,Write,WebFetch,Skill" "/do-it-clean self"
 ```
 
 ## Security
@@ -49,6 +49,7 @@ Nothing else leaves your computer.
 **What the lockdown blocks**, enforced by Claude Code's settings and not just by the prompt:
 - No shell commands, no web search, no notebooks, no subagents, and no publishing, messaging other sessions, notifications, or scheduled tasks.
 - No MCP servers (`--strict-mcp-config`).
+- Only seven tools exist in the session: Read, Glob, Grep, Edit, Write, WebFetch, and Skill (`--tools`). Tools Claude Code adds later stay off unless they're added to this list.
 - Web fetches only to the allowlist. Anything that isn't explicitly allowed is denied without asking (`dontAsk` mode).
 - Reads only inside the do-it-clean folder and the repo being audited. A link inside the repo that points somewhere else is refused too. On top of that, `.env` files and keys are blocked everywhere.
 - Skills inside the audited repo can't run shell commands, and the audit never invokes them. Test S8 checks this.
