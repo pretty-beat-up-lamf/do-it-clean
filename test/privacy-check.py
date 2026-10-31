@@ -82,7 +82,9 @@ def main():
     else:
         ranges = sys.argv[1:] or ["HEAD --not --remotes"]
 
-    published = git("rev-parse", "--verify", "-q", "@{upstream}").strip() or None
+    # A new branch has no upstream yet, so compare against the published main instead.
+    published = (git("rev-parse", "--verify", "-q", "@{upstream}").strip()
+                 or git("rev-parse", "--verify", "-q", "origin/main").strip() or None)
     skipped, checks = [], []
     for n in sorted(report_names()):
         if published and subprocess.run(["git", "grep", "-I", "-q", "-i", "-w", "-F", n, published]).returncode == 0:
