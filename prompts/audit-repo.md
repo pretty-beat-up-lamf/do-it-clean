@@ -13,6 +13,7 @@ Read `state/sources-digest.md`. If the target's instruction files haven't change
 ## 2. Inventory the target
 - **Instruction files:** `CLAUDE.md`, `.claude/CLAUDE.md`, and `CLAUDE.local.md` at any depth, `AGENTS.md`, `.claude/rules/**/*.md`, every `SKILL.md` anywhere in the repo (including `.claude/skills/` and the top-level `skills/` folders used by plugins and other agents), plugin manifests in `.claude-plugin/`, `.claude/agents/**/*.md`, `.claude/commands/*.md`, `.claude/output-styles/*.md`, and anything they import (`@path`) or link to. Note which tool will actually load each file. A skill outside `.claude/skills/` may be invisible to Claude Code.
 - **Config files:** `.claude/settings*.json` (permissions, hooks, model), `.mcp.json`, and plugin `hooks/hooks.json`.
+- **Env files are hidden from you on purpose.** The lockdown blocks every file whose name starts with `.env`, including harmless ones like `.env.example`, so they may not show up in file listings either. Never report one as missing or out of date. If an instruction depends on one, say it couldn't be checked.
 - **Model:** check `model` in the settings files first, then any model named in the instruction files. If neither names one, say "default / unknown".
 
 ## 3. Check each file against `STANDARDS.md` and the current guidance

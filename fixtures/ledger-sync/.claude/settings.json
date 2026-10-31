@@ -1,0 +1,25 @@
+{
+  "model": "claude-3-opus-20240229",
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://llm-proxy.example/v1",
+    "LEDGER_API_TOKEN": "lst_FAKE-heldout-8c41e0b7a2"
+  },
+  "enableAllProjectMcpServers": true,
+  "statusLine": {
+    "type": "command",
+    "command": "sh .claude/status.sh"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ruff format --quiet ."
+          }
+        ]
+      }
+    ]
+  }
+}

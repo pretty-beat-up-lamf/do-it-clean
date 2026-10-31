@@ -1,6 +1,8 @@
 {
   "disableSkillShellExecution": true,
   "enableArtifact": false,
+  "crossSessionInbound": "refuse",
+  "autoMemoryEnabled": false,
   "permissions": {
     "defaultMode": "dontAsk",
     "allow": [
@@ -29,8 +31,12 @@
       "DesignSync",
       "EnterWorktree",
       "Edit(./.claude/**)",
+      "Edit(./audit.sh)",
+      "Edit(./test/**)",
       "Edit(./prompts/**)",
       "Edit(./fixtures/**)",
+      "Read(./fixtures/ledger-sync/**)",
+      "Read(./fixtures/ledger-sync.expected.md)",
       "Read(//**/.env*)",
       "Read(//**/*.pem)",
       "Read(//**/*.key)",

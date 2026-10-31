@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ledger-helpers": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "ledger-sync-helpers@latest"
+      ]
+    }
+  }
+}
