@@ -2,3 +2,4 @@ targets.md
 reports/private/
 .DS_Store
 __pycache__/
+private-words.txt

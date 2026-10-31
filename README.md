@@ -85,6 +85,14 @@ The test includes an injection hidden in an HTML comment, one in a skill file, a
 ## Privacy
 Reports about your repos go in `reports/private/`, which is gitignored, and `targets.md` is gitignored too. Only fixture runs and self-audits, which are about do-it-clean itself, are meant to be committed.
 
+A pre-push check backs this up. `test/privacy-check.py` blocks a push if the outgoing commits mention any repo you've audited (names come from the reports in `reports/private/` and from `targets.md`), a home-folder path, or anything you list in `private-words.txt`. That file is gitignored too: put your name, email, and username in it, one per line. Turn the check on once per clone:
+
+```bash
+ln -s ../../test/privacy-check.py .git/hooks/pre-push
+```
+
+To run it by hand, use `./test/privacy-check.py`. A repo name that's already a common word in the published repo (like "skills") is skipped and listed, so check those yourself.
+
 ## Optional: run on a schedule
 Running it whenever you want is the default, and it's enough for most people. If you'd like a schedule, the Claude desktop app can run a local scheduled task with the same command. Cloud routines also work, but your repos then have to be on GitHub with the routine given access to them, so they don't fit the stay-local goal.
 
