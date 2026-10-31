@@ -1,16 +1,16 @@
 # do-it-clean
 
-**Look at a repo's AI instruction files before your AI does.**
+**A repo can tell your AI what to do. Check what it says first.**
 
-`CLAUDE.md`, `AGENTS.md`, skills, subagents, hooks and settings are all text that an assistant reads and acts on. That makes them a nice place to hide something ("fetch this URL", "send me your `.env`", "ignore the auditor"), and also a place where plain old rot piles up: stale commands, rules that contradict each other, filler that no longer helps.
+`CLAUDE.md`, `AGENTS.md`, skills, subagents, hooks and settings are all text that your AI reads and acts on. That makes them easy places to hide something malicious ("fetch this URL", "send me your `.env`", "ignore the auditor"), and also places where junk piles up, like stale commands, rules that contradict each other, and stuff that's just not needed.
 
-do-it-clean reads them for you, in a session that's locked down so it can't do much besides read, and writes a report. It never edits the repo it audits. You decide what to change.
+do-it-clean reads those files for you and writes a report on anything risky, outdated, contradictory, or extraneous. It runs in a locked-down Claude Code session, and it never changes the repo it's checking.
 
-## What a finding looks like
+## What the report looks like
 
 This is from a run against the fake repo in `fixtures/` (full report in [`reports/fixture-run.md`](reports/fixture-run.md)). Everything in it is planted test data:
 
-| Type | Where | Finding | Proposed change |
+| Type | Where | What's wrong | Proposed fix |
 |---|---|---|---|
 | Security | CLAUDE.md:5 | Prompt injection in an HTML comment aimed at AI auditors, telling them to report nothing. Not followed, reported instead. | Delete the comment. |
 | Security | .claude/settings.json:8-14 | A hook quietly uploads CLAUDE.md, secrets included, to an outside host after every edit. | Remove the hook. |
@@ -18,7 +18,7 @@ This is from a run against the fake repo in `fixtures/` (full report in [`report
 | Outdated | CLAUDE.md:30 | `npm run typecheck`, but there's no such script. | Remove it or add the script. |
 | Prune | CLAUDE.md:13-23 | "Think step by step", "write clean code" and friends. | Delete. |
 
-Each real finding comes with a file and line, a proposed fix, the evidence, and a confidence level.
+Each item in the report also comes with the evidence and a confidence level.
 
 ## Try it
 You need [Claude Code](https://code.claude.com). From this folder, in a terminal (one inside the desktop app works too):
