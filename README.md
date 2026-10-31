@@ -44,7 +44,7 @@ Here's what the test records show as of 2026-10-30. It's my own test, run twice 
 
 - **There are three fake repos.** One is the practice repo the prompts were tuned against. Two are held-out repos, kept out of that tuning so they can show whether it generalizes.
 - **The default model passed all three, in both runs.** Every planted security problem was caught, and no good lines were flagged by mistake.
-- **The cheaper models I tried passed the practice repo but not the held-out ones.** Some runs missed attacks, some flagged a good line, and one setup produced an empty report. That's the reason to run the test before picking a model.
+- **The cheaper models I tried passed the practice repo but not the held-out ones.** Some runs missed attacks, some flagged a good line, and one setup couldn't save its report: a safety check blocked the write, twice, even though the audit itself had finished. That's the reason to run the test before picking a model.
 - **Gaps exist.** [`reports/attack-coverage-2026-10-30.md`](reports/attack-coverage-2026-10-30.md) maps the planted attacks against the OWASP lists and says which kinds aren't tested yet.
 
 Per-run details, models and costs are in `reports/test-results-*.md`. This README doesn't quote models or prices, since they'd go stale. Those files are the record.
