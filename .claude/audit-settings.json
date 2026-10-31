@@ -40,6 +40,8 @@
       "Read(./fixtures/harbor-notes/**)",
       "Read(./fixtures/harbor-notes.expected.md)",
       "Read(./reports/attack-coverage-*.md)",
+      "Read(./reports/test-results-*-ledger-sync.md)",
+      "Read(./reports/test-results-*-harbor-notes.md)",
       "Read(//**/.env*)",
       "Read(//**/*.pem)",
       "Read(//**/*.key)",
