@@ -33,3 +33,12 @@ Last checked: 2026-10-30
 - sub-agents: plugin subagents ignore frontmatter `hooks`/`mcpServers`; plugins ship hooks in `hooks/hooks.json`. `Task` still an alias of `Agent`.
 - skills: new `disallowed-tools`, `when_to_use`, `paths`, `shell` frontmatter fields; `allowManagedPermissionRulesOnly` ignores project `allowed-tools` (v2.1.282+). SKILL.md still under 500 lines.
 - models overview / deprecations: same four current models; no new deprecations since 2026-09-30.
+
+## 2026-10-30 (self-audit, second pass)
+- All 13 URLs (10 primary, 3 secondary) returned content; the fetch tool doesn't expose status codes, so redirects could only be seen via page metadata (models overview still lists canonical `…/docs/en/models/overview`).
+- changelog: top is now 2.1.316 (was 2.1.314). 2.1.316 deprecates fast mode on Opus 4.8 (removal 2026-11-30) and adds `CLAUDE_CODE_SUBAGENT_EFFORT`, `CLAUDE_CODE_DISABLE_ULTRATHINK`. 2.1.314 also lets hook `if` conditions match `Monitor(...)` like `Bash(...)`; `/permissions` Review tab renamed "Recently blocked". 2.1.310: Monitor tool available on more providers.
+- sub-agents: `/agents` (v2.1.197+) no longer opens a wizard; subagent frontmatter also has `omitClaudeMd` (v2.1.271+), `initialPrompt`, `isolation`; inline `mcpServers` in project agent files load only after folder trust (v2.1.238+).
+- permissions: sandboxing covers Bash, PowerShell, and Monitor tool commands.
+- cli-reference: `--strict-mcp-config`, `--bare`, `--add-dir`, `--settings`, `stream-json` still documented.
+- models overview: Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5 current; deprecations table also lists `claude-mythos-5-1` (active); claude-sonnet-4-5-20250929 retires 2026-11-30.
+- engineering blog: newest post "Redesigning source control at Anthropic" (2026-10-13). agents.md: now stewarded by the Agentic AI Foundation; closest AGENTS.md wins.
