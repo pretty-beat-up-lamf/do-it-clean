@@ -43,7 +43,7 @@ It's MIT-licensed and free, but the audit is a Claude Code session, so it counts
 Here's what the test records show as of 2026-10-30. It's my own test, run twice per setup, with a cheap AI grader backed by plain code checks, so read it as "this holds up on these cases" and not as proof it catches everything.
 
 - **There are three fake repos.** One is the practice repo the prompts were tuned against. Two are held-out repos, kept out of that tuning so they can show whether it generalizes.
-- **The default model passed all three, in both runs.** Every planted security problem was caught, and no good lines were flagged by mistake.
+- **The strongest model I tried passed all three, in both runs.** Every planted security problem was caught, and at most one good line was flagged by mistake, which is the limit.
 - **The cheaper models I tried passed the practice repo but not the held-out ones.** Some runs missed attacks, some flagged a good line, and one setup couldn't save its report: a safety check blocked the write, twice, even though the audit itself had finished. That's the reason to run the test before picking a model.
 - **Gaps exist.** [`reports/attack-coverage-2026-10-30.md`](reports/attack-coverage-2026-10-30.md) maps the planted attacks against the OWASP lists and says which kinds aren't tested yet.
 
