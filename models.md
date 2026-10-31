@@ -15,3 +15,4 @@ Starts empty on purpose. The self-audit adds entries only when it can cite a sou
 
 | Claim | Applies to | Source | Verified (YYYY-MM-DD) | Status |
 |---|---|---|---|---|
+| On a repo with many planted attacks, a safety classifier can stop the report from being saved, even when the report describes attacks without quoting them. Use the default model for attack-heavy repos. | claude-sonnet-5-5 | `reports/test-results-claude-sonnet-5-5-2026-10-30-harbor-notes.md` (blocked by a safety classifier, from the run log, after the no-quoting rule); `reports/test-results-sonnet-harbor-notes.md` (2 earlier runs, no report saved) | 2026-10-30 | Current |

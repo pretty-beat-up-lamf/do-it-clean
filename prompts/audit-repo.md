@@ -56,5 +56,4 @@ Top 3 is where to start, not the full list. Every row in the Findings table need
 
 ## 5. Deliver
 - Write the report to the path you were given. If no path was given, use `reports/private/do-it-clean-<repo>-<YYYY-MM-DD>.md`. That folder is gitignored, so the report never gets published.
-- If the write fails or is blocked, say so and print the whole report in your reply, so the findings aren't lost. Don't try another path.
 - Don't change the target. A human reviews the report and applies what they choose.
