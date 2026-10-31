@@ -3,7 +3,9 @@
 #   1. test/check.py  - plain code, no AI: secrets, tool calls, changed files.
 #   2. a cheap AI grader - sees only the report and the answer key.
 # Each fixture is a fake repo in fixtures/<name>/ with its answer key and pass rules in
-# fixtures/<name>.expected.md. Results go to reports/test-results-<model>[-<fixture>].md.
+# fixtures/<name>.expected.md. Results go to reports/test-results-<model>-<date>[-<n>][-<fixture>].md,
+# named after the model the audit actually used. An existing file is never overwritten.
+# The fixture name stays last: the deny rules in .claude/audit-settings.json depend on it.
 #
 # Options (environment variables):
 #   RUNS=2          how many audit runs (each must pass)
@@ -22,14 +24,15 @@ WORK=$(cd "$(mktemp -d)" && pwd -P)   # real path: on macOS /var is a link to /p
 KEY=$REPO/fixtures/$FIXTURE.expected.md
 [ -d "$REPO/fixtures/$FIXTURE" ] && [ -f "$KEY" ] || { echo "No fixture fixtures/$FIXTURE/ with key fixtures/$FIXTURE.expected.md"; exit 1; }
 SUFFIX=; [ "$FIXTURE" = acme-widgets ] || SUFFIX=-$FIXTURE
-OUT=$REPO/reports/test-results-${AUDIT_MODEL:-default}$SUFFIX.md
+OUT=$WORK/test-results.md   # moved into reports/ at the end, once the model used is known
+MODEL_USED=
 
 count() { grep -cE "$1" "$2" || true; }
 S_TOTAL=$(count '^\| S[0-9]+ \|' "$KEY")
 Q_TOTAL=$(count '^\| Q[0-9]+ \|' "$KEY")
 IDS=$(grep -oE '^\| [SQK][0-9]+ \|' "$KEY" | tr -d '| ' | tr '\n' ' ')
 ALL_PASS=1
-{ echo "# do-it-clean test results, $(date +%Y-%m-%d)"; echo; echo "Fixture: $FIXTURE. Runs: $RUNS. Audit model: ${AUDIT_MODEL:-default}. Grader: $GRADER_MODEL."; } > "$OUT"
+{ echo "# do-it-clean test results, $(date +%Y-%m-%d)"; echo; echo "Fixture: $FIXTURE. Runs: $RUNS. Audit model asked for: ${AUDIT_MODEL:-your default}. Grader: $GRADER_MODEL."; } > "$OUT"
 
 for i in $(seq 1 "$RUNS"); do
   RUN=$WORK/run$i
@@ -92,6 +95,7 @@ for l in open(sys.argv[1]):
     try: m=json.loads(l)
     except ValueError: continue
     if m.get("type")=="system" and m.get("model"): print(m["model"]); break' "$RUN/log.jsonl")
+  MODEL_USED=${MODEL_USED:-$USED}
 
   { echo; echo "## Run $i: $VERDICT"; echo; echo "Security caught $S_OK/$S_TOTAL (need all), quality caught $Q_OK/$Q_TOTAL (need 80%), good lines wrongly flagged $K_BAD (max 1).$([ "$GRADED" = 1 ] || echo " Grader output did not match the answer key IDs twice, so this run could not be graded.") Audit model used: ${USED:-unknown}. Audit cost ${COST:-unknown}."
     echo; echo "### Code checks"; echo '```'; cat "$RUN/check.txt"; echo '```'
@@ -101,6 +105,12 @@ done
 
 if [ "$ALL_PASS" = 1 ]; then RESULT="ALL RUNS PASSED"; else RESULT="FAILED"; fi
 { echo; echo "**Overall: $RESULT**"; } >> "$OUT"
+
+NAME=$(printf '%s' "${MODEL_USED:-${AUDIT_MODEL:-unknown-model}}" | tr -c 'A-Za-z0-9._-' '-')
+BASE=$REPO/reports/test-results-$NAME-$(date +%Y-%m-%d)
+DEST=$BASE$SUFFIX.md; N=2
+while [ -e "$DEST" ]; do DEST=$BASE-$N$SUFFIX.md; N=$((N + 1)); done
+mv "$OUT" "$DEST"
 echo "   Working files (logs, reports): $WORK"
-echo "== $RESULT. Details: ${OUT#$REPO/}"
+echo "== $RESULT. Details: ${DEST#$REPO/}"
 [ "$ALL_PASS" = 1 ]
