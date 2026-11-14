@@ -29,6 +29,8 @@ You'll need [Claude Code](https://code.claude.com). Clone this repo, open a term
 
 The report lands in `reports/private/`. Read it, then apply only the changes you agree with.
 
+**On Windows,** run it from Git Bash. If the session opens with an empty prompt instead of starting the audit, type `/do-it-clean <path-to-repo>` in that same window and press Enter. The lockdown is already loaded there.
+
 Use `audit.sh` and not a plain `claude` command. The lockdown flags only live there, and if the skill can see the shell tool it assumes the lockdown didn't load and refuses to run.
 
 It's MIT-licensed and free, but the audit is a Claude Code session, so it counts against your Claude Code usage.
