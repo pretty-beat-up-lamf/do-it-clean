@@ -3,6 +3,8 @@
   "enableArtifact": false,
   "crossSessionInbound": "refuse",
   "autoMemoryEnabled": false,
+  "syncClaudeAiSkills": false,
+  "disableAllHooks": true,
   "permissions": {
     "defaultMode": "dontAsk",
     "allow": [
@@ -30,6 +32,7 @@
       "ScheduleWakeup",
       "DesignSync",
       "EnterWorktree",
+      "Monitor",
       "Edit(./.claude/**)",
       "Edit(./audit.sh)",
       "Edit(./test/**)",

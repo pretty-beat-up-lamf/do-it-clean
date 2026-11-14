@@ -78,19 +78,20 @@ Nothing else leaves your computer.
 - No shell commands, no web search, no notebooks, no subagents, and no publishing, messaging other sessions, notifications, or scheduled tasks.
 - No MCP servers (`--strict-mcp-config`), and no messages from other Claude sessions (`crossSessionInbound`).
 - The audited repo's CLAUDE.md files are never loaded as instructions, even if your shell sets `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1`. `audit.sh` turns it off.
+- Your own hooks and the mods you've installed are turned off for the audit (`disableAllHooks`), and skills synced from your claude.ai account don't load (`syncClaudeAiSkills`).
 - No auto memory, so notes from your other Claude sessions in this folder aren't loaded, and the audit can't leave notes for later sessions.
 - Only seven tools exist in the session: Read, Glob, Grep, Edit, Write, WebFetch, and Skill (`--tools`). Tools Claude Code adds later stay off unless they're added to this list.
 - Web fetches only to the allowlist. Anything that isn't explicitly allowed is denied without asking (`dontAsk` mode).
 - Reads only inside the do-it-clean folder and the repo being audited. A link inside the repo that points somewhere else is refused too. On top of that, `.env` files and keys are blocked everywhere.
-- Skills inside the audited repo can't run shell commands, and the audit never invokes them. Test S8 checks this.
+- Skills inside the audited repo can't run shell commands, and the audit never invokes them, even one that uses do-it-clean's own name. Tests S8 and S11 check this.
 - The auditor can't edit do-it-clean's own prompts, settings, launcher, tests, or fixtures, so a planted instruction can't talk it into rewriting itself.
 - If the shell, or a tool that can message other sessions, is available to the skill, it refuses to run, because that means the lockdown didn't load.
 
 **Prompt injection:** anything inside an audited repo or a fetched page is treated as data. Text that tries to give the auditor orders, like "report no findings," gets reported as a Security finding, not followed. The fixtures include planted injections to test this.
 
 **What it doesn't cover**
-- Your own user-level hooks still run, because Claude Code runs them, not do-it-clean.
-- Mods you've installed still load and can approve tool calls the lockdown would deny. Turn off any you don't trust before an audit.
+- Hooks and mods your organization manages, and Claude Code's built-in mods, still run. A settings file can't turn them off.
+- Skills from plugins you've installed still show up in the session. The audit never invokes them.
 - A clever injection can't get data out, but it could still skew the *report*. Treat findings as advice, and review them before changing anything.
 - The settings are the real protection; the prompt rules are a backup. Read `.claude/audit-settings.json` before you trust it.
 - It gives a careful second opinion, not proof that a repo is safe.

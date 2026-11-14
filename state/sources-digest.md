@@ -2,7 +2,7 @@
 
 Written by each run: the date of the last check, plus one line per source noting anything relevant that changed. The next run only reads what's newer than this date. Empty until the first run.
 
-Last checked: 2026-10-30
+Last checked: 2026-11-14
 
 ## 2026-10-27 (first run, fixture target)
 - memory: target under 200 lines per CLAUDE.md; imports don't reduce context cost. Claude Code reads AGENTS.md natively (v2.1.277+), but by default only when no CLAUDE.md / CLAUDE.local.md exists; `@AGENTS.md` import in CLAUDE.md loads both without double-reading.
@@ -42,3 +42,16 @@ Last checked: 2026-10-30
 - cli-reference: `--strict-mcp-config`, `--bare`, `--add-dir`, `--settings`, `stream-json` still documented.
 - models overview: Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5 current; deprecations table also lists `claude-mythos-5-1` (active); claude-sonnet-4-5-20250929 retires 2026-11-30.
 - engineering blog: newest post "Redesigning source control at Anthropic" (2026-10-13). agents.md: now stewarded by the Agentic AI Foundation; closest AGENTS.md wins.
+
+## 2026-11-14 (self-audit)
+- All 13 URLs (10 primary, 3 secondary) returned content. Status codes still aren't visible. REDIRECT RISK (from page metadata, third run in a row): models overview gives its own URL as `platform.claude.com/docs/en/models/overview`.
+- changelog: top is 2.1.325 (was 2.1.316); no 2.1.320 heading exists. 2.1.321 adds Claude Fable 5.2 (`claude-fable-5-2`) as the default Fable model; mods live in `.claude/skills`, their own tool calls (`$.tool.call`, `$.mcp.call`) raise no permission prompt (deny rules still apply), `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` stops mod reloading in headless sessions, and `.claude/skills` folders inside `~/.claude/plugins` no longer load. 2.1.319 adds `permissions.denyInsteadOfPrompting`. 2.1.323 adds experimental Code Mode, plugin `engines["claude-code"]`, and a TypeScript hooks module check in `claude plugin validate`. 2.1.325: scheduled tasks and `/loop` ask before running a skill that declares `allowed-tools` or hooks (allow with `Skill(name)`); `.claude/skills` in `--plugin-dir` plugins no longer load from a session started above them; `subagentStatusLine` removed; plugin `agent` setting and `pluginDigests` deprecated. 2.1.317: a check asks before a web or shell call sends the account email to the network.
+- settings: the page now covers files and precedence only; individual keys moved to a separate "All settings" page (`…/docs/en/settings-reference`) and tool names to `…/docs/en/tools-reference`, neither listed in sources.md. Stricter-value table adds `permissions.denyInsteadOfPrompting` (v2.1.319+) and `syncClaudeAiSkills: false` / `syncClaudeAiPlugins: false` (honored from `--settings`, user, or local settings).
+- permissions: `dontAsk` row now says an installed mod can still approve some calls the mode would deny; without managed settings or a Team/Enterprise login, a mod handling `tool.check` can approve a call that a deny rule refuses or a `PreToolUse` hook blocked. A deny rule naming no known tool still gives a startup warning (names with `_` or `*`, and removed tools, are exempt).
+- memory: `autoMemoryEnabled` confirmed as the settings key (also `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1`). `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD` still documented; AGENTS.md in `--add-dir` folders doesn't load even when it's set.
+- skills: claude.ai skills sync to `~/.claude/skills/synced/` in signed-in terminal sessions (v2.1.273+) and run as `/anthropic-skills:<name>` when the short name is taken; `skillOverrides` setting; a skill named `verify` or `simplify` runs before commits (v2.1.286+). SKILL.md still under 500 lines.
+- sub-agents: `--add-dir` folders load their `.claude/agents/`; plugin subagents (plugin `agents/` folder) ignore `hooks`, `mcpServers`, and `permissionMode`. `Task` still an alias of `Agent`.
+- cli-reference: every flag the repo uses is still documented. `--tools` doesn't affect MCP tools and a list can't remove `EndConversation`; `--add-dir` "doesn't discover most `.claude/` configuration" from added folders.
+- models overview / deprecations: current lineup Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5; Mythos 5.2 added (limited availability). Fable 5.1 still active. claude-sonnet-4-5-20250929 still retires 2026-11-30; no deprecations announced since 2026-09-30.
+- skill best practices, prompt engineering overview: no relevant changes.
+- engineering blog: new posts "The components of agent memory" (2026-11-06) and "Building strong safety evaluations" (2026-11-13); listing only, posts not read. agents.md: no change.
