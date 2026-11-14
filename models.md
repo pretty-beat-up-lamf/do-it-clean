@@ -11,7 +11,7 @@ Audits must not rely on stale entries. The self-audit proposes a recheck for eac
 
 ## Entries
 
-Starts empty on purpose. The self-audit adds entries only when it can cite a source.
+The self-audit adds entries only when it can cite a source.
 
 | Claim | Applies to | Source | Verified (YYYY-MM-DD) | Status |
 |---|---|---|---|---|
