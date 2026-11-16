@@ -33,6 +33,7 @@
       "DesignSync",
       "EnterWorktree",
       "Monitor",
+      "mcp__*",
       "Edit(./.claude/**)",
       "Edit(./audit.sh)",
       "Edit(./test/**)",
