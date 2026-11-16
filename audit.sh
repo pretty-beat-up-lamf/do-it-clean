@@ -25,5 +25,6 @@ ADD=()
 # Windows path, which left the session idle (issue #2). Other systems ignore it.
 exec env MSYS2_ARG_CONV_EXCL=/do-it-clean CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=0 claude \
   --settings .claude/audit-settings.json --strict-mcp-config \
+  --disallowedTools "mcp__*" \
   --tools "Read,Glob,Grep,Edit,Write,WebFetch,Skill" \
   ${ADD[@]+"${ADD[@]}"} "$@" "/do-it-clean $TARGET"
